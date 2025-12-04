@@ -1,164 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Java TODO App – Serialization & Classes | Programmer's Picnic</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Java TODO App – Serialization & Classes | Programmer's Picnic</title>
 
-    <style>
-        body {
-            background: #fff7e0;
-            font-family: system-ui, sans-serif;
-            color: #3a2a1a;
-            line-height: 1.7;
-            margin: 0;
-            padding: 0;
-        }
+        <style>
+            body {
+                background: #fff7e0;
+                font-family: system-ui, sans-serif;
+                color: #3a2a1a;
+                line-height: 1.7;
+                margin: 0;
+                padding: 0;
+            }
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: #fffaf0;
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid #f3c26b;
-            box-shadow: 0 4px 18px rgba(200, 140, 40, 0.15);
-        }
+            .container {
+                max-width: 900px;
+                margin: auto;
+                background: #fffaf0;
+                padding: 30px;
+                border-radius: 16px;
+                border: 1px solid #f3c26b;
+                box-shadow: 0 4px 18px rgba(200, 140, 40, 0.15);
+            }
 
-        h1, h2, h3 {
-            color: #a65c00;
-        }
+            h1, h2, h3 {
+                color: #a65c00;
+            }
 
-        pre {
-            background: #fff2cc;
-            padding: 15px;
-            border-left: 5px solid #e0a100;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-size: 15px;
-        }
+            pre {
+                background: #fff2cc;
+                padding: 15px;
+                border-left: 5px solid #e0a100;
+                border-radius: 8px;
+                overflow-x: auto;
+                font-size: 15px;
+            }
 
-        code {
-            font-family: Consolas, monospace;
-            color: #8a4b00;
-        }
+            code {
+                font-family: Consolas, monospace;
+                color: #8a4b00;
+            }
 
-        .highlight-box {
-            background: #fff2cc;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #e6b251;
-            margin: 20px 0;
-        }
+            .highlight-box {
+                background: #fff2cc;
+                padding: 15px;
+                border-radius: 10px;
+                border: 1px solid #e6b251;
+                margin: 20px 0;
+            }
 
-        .button {
-            display: inline-block;
-            background: #a65c00;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            text-decoration: none;
-            margin: 10px 0;
-            transition: 0.3s;
-        }
+            .button {
+                display: inline-block;
+                background: #a65c00;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 10px;
+                font-weight: bold;
+                text-decoration: none;
+                margin: 10px 0;
+                transition: 0.3s;
+            }
 
-        .button:hover {
-            background: #8a4b00;
-        }
+            .button:hover {
+                background: #8a4b00;
+            }
 
-        .button-secondary {
-            background: #b54d00;
-        }
+            .button-secondary {
+                background: #b54d00;
+            }
 
-        .button-secondary:hover {
-            background: #8a3a00;
-        }
+            .button-secondary:hover {
+                background: #8a3a00;
+            }
 
-        hr {
-            border: none;
-            border-top: 1px solid #e8c07c;
-            margin: 40px 0;
-        }
-    </style>
-</head>
+            hr {
+                border: none;
+                border-top: 1px solid #e8c07c;
+                margin: 40px 0;
+            }
+        </style>
+    </head>
 
-<body>
+    <body>
 
-    <div class="container">
+        <div class="container">
 
-  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhw8xZpjgQOZ4Krj7Yygy-nSqTQ9vwg0WGThEG2zDSjhD8KfIppw-m1mU9ZeVBgMzfNYsenGhLxmaqotWx1r0upYVX4jHuHZdKaUh6-mpraEuJBKBLbmQBtIslXsfC-i-woHwTub85g33_GGMyRVa3Q3WXoOHCq8YGiLG7C0GF9ED5aWce_6vToYCNqfSE/s320/Java%20Logo.png" class="avatar"/>
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhw8xZpjgQOZ4Krj7Yygy-nSqTQ9vwg0WGThEG2zDSjhD8KfIppw-m1mU9ZeVBgMzfNYsenGhLxmaqotWx1r0upYVX4jHuHZdKaUh6-mpraEuJBKBLbmQBtIslXsfC-i-woHwTub85g33_GGMyRVa3Q3WXoOHCq8YGiLG7C0GF9ED5aWce_6vToYCNqfSE/s320/Java%20Logo.png" class="avatar"/>
 
-        <h1>Java TODO App Using Classes & Serialization  
-            <br><small style="font-size: 18px;">(Absolute Beginner Friendly)</small>
-        </h1>
+            <h1>Java TODO App Using Classes & Serialization  
+                <br><small style="font-size: 18px;">(Absolute Beginner Friendly)</small>
+            </h1>
 
-        <a class="button" href="https://github.com/Varanasi-Software-Junction/ToDo" target="_blank">🔗 View Source on GitHub</a>
-        <a class="button button-secondary" href="paid-gui-version.html" target="_self">🖥 View GUI Version (Paid)</a>
+            <a class="button" href="https://github.com/Varanasi-Software-Junction/ToDo" target="_blank">🔗 View Source on GitHub</a>
+            <a class="button button-secondary" href="paid-gui-version.html" target="_self">🖥 View GUI Version (Paid)</a>
 
-        <p>
-            In this lesson, we will build a complete Java TODO Application using
-            <b>Classes, Objects, Methods, ArrayList, File Handling, and Serialization</b>.
-            This is ideal for beginners and forms a strong base for future GUI or Android versions.
-        </p>
+            <p>
+                In this lesson, we will build a complete Java TODO Application using
+                <b>Classes, Objects, Methods, ArrayList, File Handling, and Serialization</b>.
+                This is ideal for beginners and forms a strong base for future GUI or Android versions.
+            </p>
 
-        <div class="highlight-box">
-            <b>This TODO App Can:</b>
-            <ul>
-                <li>Add tasks</li>
-                <li>List tasks</li>
-                <li>Mark tasks as completed</li>
-                <li>Delete tasks</li>
-                <li>Save tasks permanently using Serialization</li>
-                <li>Load tasks automatically at startup</li>
-            </ul>
-        </div>
+            <div class="highlight-box">
+                <b>This TODO App Can:</b>
+                <ul>
+                    <li>Add tasks</li>
+                    <li>List tasks</li>
+                    <li>Mark tasks as completed</li>
+                    <li>Delete tasks</li>
+                    <li>Save tasks permanently using Serialization</li>
+                    <li>Load tasks automatically at startup</li>
+                </ul>
+            </div>
 
-        <hr>
+            <hr>
 
-        <h2>💡 Understanding The Concepts</h2>
+            <h2>💡 Understanding The Concepts</h2>
 
-        <h3>1. What is a Class?</h3>
-        <p>
-            A <b>class</b> is a blueprint.  
-            Example: "Car" is a class. A real car like "Maruti Swift" is an <b>object</b>.
-        </p>
+            <h3>1. What is a Class?</h3>
+            <p>
+                A <b>class</b> is a blueprint.  
+                Example: "Car" is a class. A real car like "Maruti Swift" is an <b>object</b>.
+            </p>
 
-        <h3>2. What is an Object?</h3>
-        <p>
-            Objects are created from classes.  
-            In this app, each task is an object of the <b>Task</b> class.
-        </p>
+            <h3>2. What is an Object?</h3>
+            <p>
+                Objects are created from classes.  
+                In this app, each task is an object of the <b>Task</b> class.
+            </p>
 
-        <h3>3. What is an ArrayList?</h3>
-        <p>
-            ArrayList is a flexible container that grows automatically.  
-            We use it to store multiple Task objects.
-        </p>
+            <h3>3. What is an ArrayList?</h3>
+            <p>
+                ArrayList is a flexible container that grows automatically.  
+                We use it to store multiple Task objects.
+            </p>
 
-        <h3>4. What is Serialization?</h3>
-        <p>
-            Java cannot store objects directly into files. Serialization converts an object to bytes.  
-            These bytes can be saved to disk and loaded later.  
-            Our file will be called <b>tasks.dat</b>.
-        </p>
+            <h3>4. What is Serialization?</h3>
+            <p>
+                Java cannot store objects directly into files. Serialization converts an object to bytes.  
+                These bytes can be saved to disk and loaded later.  
+                Our file will be called <b>tasks.dat</b>.
+            </p>
 
-        <h3>5. What is Scanner?</h3>
-        <p>
-            Scanner is used to take input from the keyboard (user types into console).
-        </p>
+            <h3>5. What is Scanner?</h3>
+            <p>
+                Scanner is used to take input from the keyboard (user types into console).
+            </p>
 
-        <h3>6. What is try–catch?</h3>
-        <p>
-            try–catch prevents the program from crashing when something goes wrong.
-        </p>
+            <h3>6. What is try–catch?</h3>
+            <p>
+                try–catch prevents the program from crashing when something goes wrong.
+            </p>
 
-        <hr>
+            <hr>
 
-        <h2>1️⃣ The Task Class</h2>
+            <h2>1️⃣ The Task Class</h2>
 
-<pre><code>
+            <pre><code>
+
+
+package live.learnwithchampak.basicjava.todo;
 import java.io.Serializable;
 
 public class Task implements Serializable {
@@ -187,21 +190,25 @@ public class Task implements Serializable {
         return id + ". " + title + " [" + (completed ? "DONE" : "PENDING") + "]";
     }
 }
+
+
 </code></pre>
 
-        <hr>
+            <hr>
 
-        <h2>2️⃣ Saving & Loading Tasks (Serialization)</h2>
+            <h2>2️⃣ Saving & Loading Tasks (Serialization)</h2>
 
-<pre><code>
+            <pre><code>
+ 
+package live.learnwithchampak.basicjava.todo;
 import java.io.*;
 import java.util.ArrayList;
 
 public class TaskStorage {
 
-    private static final String FILE_NAME = "tasks.ser";
+    private static final String FILE_NAME = "tasks.dat";
 
-    public static void saveTasks(ArrayList&lt;Task&gt; tasks) {
+    public static void saveTasks(ArrayList<Task> tasks) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(tasks);
         } catch (Exception e) {
@@ -209,33 +216,35 @@ public class TaskStorage {
         }
     }
 
-    public static ArrayList&lt;Task&gt; loadTasks() {
+    public static ArrayList<Task> loadTasks() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-            return (ArrayList&lt;Task&gt;) ois.readObject();
+            return (ArrayList<Task>) ois.readObject();
         } catch (Exception e) {
             System.out.println("No saved tasks found, starting fresh.");
-            return new ArrayList&lt;&gt;();
+            return new ArrayList<>();
         }
     }
 }
+
 </code></pre>
 
-        <hr>
+                                <hr>
 
-        <h2>3️⃣ TodoManager – The Core Logic</h2>
+                                <h2>3️⃣ TodoManager – The Core Logic</h2>
 
-<pre><code>
+                                <pre><code>
+   package live.learnwithchampak.basicjava.todo;
 import java.util.ArrayList;
 
 public class TodoManager {
 
-    private ArrayList&lt;Task&gt; tasks;
+    private ArrayList<Task> tasks;
     private int nextId = 1;
 
     public TodoManager() {
         tasks = TaskStorage.loadTasks();
         if (!tasks.isEmpty()) {
-            nextId = tasks.get(tasks.size() - 1).getId() + 1;
+            nextId = tasks.get(tasks.size() - 1).getId() + 1; // continue ID
         }
     }
 
@@ -274,13 +283,14 @@ public class TodoManager {
         System.out.println("Task deleted!");
     }
 }
+
 </code></pre>
 
-        <hr>
+                                <hr>
 
-        <h2>4️⃣ Main Console Menu</h2>
+                                <h2>4️⃣ Main Console Menu</h2>
 
-<pre><code>
+                                <pre><code>
 import java.util.Scanner;
 
 public class TodoApp {
@@ -337,37 +347,37 @@ public class TodoApp {
 }
 </code></pre>
 
-        <hr>
+                                <hr>
 
-        <h2>▶️ How to Run</h2>
+                                <h2>▶️ How to Run</h2>
 
-        <ol>
-            <li>Place all 4 files in one folder</li>
-            <li>Compile using:<br><code>javac *.java</code></li>
-            <li>Run the program:<br><code>java TodoApp</code></li>
-        </ol>
+                                <ol>
+                                    <li>Place all 4 files in one folder</li>
+                                    <li>Compile using:<br><code>javac *.java</code></li>
+                                    <li>Run the program:<br><code>java TodoApp</code></li>
+                                </ol>
 
-        <p>
-            A file named <b>tasks.ser</b> will store your tasks permanently using Serialization.
-        </p>
+                                <p>
+                                    A file named <b>tasks.ser</b> will store your tasks permanently using Serialization.
+                                </p>
 
-        <hr>
+                                <hr>
 
-        <h2>🚀 Upgrade Ideas</h2>
-        <ul>
-            <li>Task deadlines</li>
-            <li>Priority levels</li>
-            <li>Categories</li>
-            <li>Task search</li>
-            <li>Export to JSON / CSV</li>
-            <li>GUI version (Swing / JavaFX)</li>
-            <li>Android app</li>
-        </ul>
+                                <h2>🚀 Upgrade Ideas</h2>
+                                <ul>
+                                    <li>Task deadlines</li>
+                                    <li>Priority levels</li>
+                                    <li>Categories</li>
+                                    <li>Task search</li>
+                                    <li>Export to JSON / CSV</li>
+                                    <li>GUI version (Swing / JavaFX)</li>
+                                    <li>Android app</li>
+                                </ul>
 
-        <p>Tell me what you want next, Champak, and I'll generate the full code + explanation.</p>
+                                <p>Tell me what you want next, Champak, and I'll generate the full code + explanation.</p>
 
-    </div>
+                                </div>
 
-</body>
+                                </body>
 
-</html>
+                                </html>

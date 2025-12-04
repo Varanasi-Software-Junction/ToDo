@@ -1,4 +1,5 @@
 package live.learnwithchampak.basicjava.todo;
+
 import java.util.Scanner;
 
 public class TodoApp {
@@ -11,7 +12,7 @@ public class TodoApp {
         while (true) {
             System.out.println("\n TODO MENU ");
             System.out.println("0. Exit");
-            
+
             System.out.println("1. Add Task");
             System.out.println("2. List Tasks");
             System.out.println("3. Mark Completed");
@@ -43,7 +44,7 @@ public class TodoApp {
                     int id2 = sc.nextInt();
                     manager.deleteTask(id2);
                     break;
-                
+
                 default:
                     System.out.println("Invalid choice.");
             }
