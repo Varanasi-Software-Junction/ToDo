@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class TaskStorage {
 
-    private static final String FILE_NAME = "tasks.ser";
+    private static final String FILE_NAME = "tasks.dat";
 
     public static void saveTasks(ArrayList<Task> tasks) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
