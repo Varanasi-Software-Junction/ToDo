@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java TODO App – Serialization & Classes | Programmer's Picnic</title>
+
+    <style>
+        body {
+            background: #fff7e0;
+            font-family: system-ui, sans-serif;
+            color: #3a2a1a;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fffaf0;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid #f3c26b;
+            box-shadow: 0 4px 18px rgba(200, 140, 40, 0.15);
+        }
+
+        h1, h2, h3 {
+            color: #a65c00;
+        }
+
+        pre {
+            background: #fff2cc;
+            padding: 15px;
+            border-left: 5px solid #e0a100;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 15px;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            color: #8a4b00;
+        }
+
+        .highlight-box {
+            background: #fff2cc;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e6b251;
+            margin: 20px 0;
+        }
+
+        .button {
+            display: inline-block;
+            background: #a65c00;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 10px 0;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: #8a4b00;
+        }
+
+        .button-secondary {
+            background: #b54d00;
+        }
+
+        .button-secondary:hover {
+            background: #8a3a00;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e8c07c;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Java TODO App Using Classes & Serialization  
+            <br><small style="font-size: 18px;">(Absolute Beginner Friendly)</small>
+        </h1>
+
+        <a class="button" href="https://github.com/your-repo-link" target="_blank">🔗 View Source on GitHub</a>
+        <a class="button button-secondary" href="paid-gui-version.html" target="_blank">🖥 View GUI Version (Paid)</a>
+
+        <p>
+            In this lesson, we will build a complete Java TODO Application using
+            <b>Classes, Objects, Methods, ArrayList, File Handling, and Serialization</b>.
+            This is ideal for beginners and forms a strong base for future GUI or Android versions.
+        </p>
+
+        <div class="highlight-box">
+            <b>This TODO App Can:</b>
+            <ul>
+                <li>Add tasks</li>
+                <li>List tasks</li>
+                <li>Mark tasks as completed</li>
+                <li>Delete tasks</li>
+                <li>Save tasks permanently using Serialization</li>
+                <li>Load tasks automatically at startup</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>💡 Understanding The Concepts</h2>
+
+        <h3>1. What is a Class?</h3>
+        <p>
+            A <b>class</b> is a blueprint.  
+            Example: "Car" is a class. A real car like "Maruti Swift" is an <b>object</b>.
+        </p>
+
+        <h3>2. What is an Object?</h3>
+        <p>
+            Objects are created from classes.  
+            In this app, each task is an object of the <b>Task</b> class.
+        </p>
+
+        <h3>3. What is an ArrayList?</h3>
+        <p>
+            ArrayList is a flexible container that grows automatically.  
+            We use it to store multiple Task objects.
+        </p>
+
+        <h3>4. What is Serialization?</h3>
+        <p>
+            Java cannot store objects directly into files. Serialization converts an object to bytes.  
+            These bytes can be saved to disk and loaded later.  
+            Our file will be called <b>tasks.ser</b>.
+        </p>
+
+        <h3>5. What is Scanner?</h3>
+        <p>
+            Scanner is used to take input from the keyboard (user types into console).
+        </p>
+
+        <h3>6. What is try–catch?</h3>
+        <p>
+            try–catch prevents the program from crashing when something goes wrong.
+        </p>
+
+        <hr>
+
+        <h2>1️⃣ The Task Class</h2>
+
+<pre><code>
+import java.io.Serializable;
+
+public class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private int id;
+    private String title;
+    private boolean completed;
+
+    public Task(int id, String title) {
+        this.id = id;
+        this.title = title;
+        this.completed = false;
+    }
+
+    public int getId() { return id; }
+    public String getTitle() { return title; }
+    public boolean isCompleted() { return completed; }
+
+    public void markCompleted() {
+        this.completed = true;
+    }
+
+    @Override
+    public String toString() {
+        return id + ". " + title + " [" + (completed ? "DONE" : "PENDING") + "]";
+    }
+}
+</code></pre>
+
+        <hr>
+
+        <h2>2️⃣ Saving & Loading Tasks (Serialization)</h2>
+
+<pre><code>
+import java.io.*;
+import java.util.ArrayList;
+
+public class TaskStorage {
+
+    private static final String FILE_NAME = "tasks.ser";
+
+    public static void saveTasks(ArrayList&lt;Task&gt; tasks) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            oos.writeObject(tasks);
+        } catch (Exception e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList&lt;Task&gt; loadTasks() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
+            return (ArrayList&lt;Task&gt;) ois.readObject();
+        } catch (Exception e) {
+            System.out.println("No saved tasks found, starting fresh.");
+            return new ArrayList&lt;&gt;();
+        }
+    }
+}
+</code></pre>
+
+        <hr>
+
+        <h2>3️⃣ TodoManager – The Core Logic</h2>
+
+<pre><code>
+import java.util.ArrayList;
+
+public class TodoManager {
+
+    private ArrayList&lt;Task&gt; tasks;
+    private int nextId = 1;
+
+    public TodoManager() {
+        tasks = TaskStorage.loadTasks();
+        if (!tasks.isEmpty()) {
+            nextId = tasks.get(tasks.size() - 1).getId() + 1;
+        }
+    }
+
+    public void addTask(String title) {
+        Task t = new Task(nextId++, title);
+        tasks.add(t);
+        TaskStorage.saveTasks(tasks);
+        System.out.println("Task added!");
+    }
+
+    public void listTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks yet.");
+            return;
+        }
+        for (Task t : tasks) {
+            System.out.println(t);
+        }
+    }
+
+    public void markCompleted(int id) {
+        for (Task t : tasks) {
+            if (t.getId() == id) {
+                t.markCompleted();
+                TaskStorage.saveTasks(tasks);
+                System.out.println("Task marked as DONE!");
+                return;
+            }
+        }
+        System.out.println("Task not found.");
+    }
+
+    public void deleteTask(int id) {
+        tasks.removeIf(t -> t.getId() == id);
+        TaskStorage.saveTasks(tasks);
+        System.out.println("Task deleted!");
+    }
+}
+</code></pre>
+
+        <hr>
+
+        <h2>4️⃣ Main Console Menu</h2>
+
+<pre><code>
+import java.util.Scanner;
+
+public class TodoApp {
+
+    public static void main(String[] args) {
+
+        TodoManager manager = new TodoManager();
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n=== TODO MENU ===");
+            System.out.println("1. Add Task");
+            System.out.println("2. List Tasks");
+            System.out.println("3. Mark Completed");
+            System.out.println("4. Delete Task");
+            System.out.println("5. Exit");
+            System.out.print("Choose: ");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter task title: ");
+                    String title = sc.nextLine();
+                    manager.addTask(title);
+                    break;
+
+                case 2:
+                    manager.listTasks();
+                    break;
+
+                case 3:
+                    System.out.print("Task ID to mark complete: ");
+                    int id1 = sc.nextInt();
+                    manager.markCompleted(id1);
+                    break;
+
+                case 4:
+                    System.out.print("Task ID to delete: ");
+                    int id2 = sc.nextInt();
+                    manager.deleteTask(id2);
+                    break;
+
+                case 5:
+                    System.out.println("Goodbye!");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }
+    }
+}
+</code></pre>
+
+        <hr>
+
+        <h2>▶️ How to Run</h2>
+
+        <ol>
+            <li>Place all 4 files in one folder</li>
+            <li>Compile using:<br><code>javac *.java</code></li>
+            <li>Run the program:<br><code>java TodoApp</code></li>
+        </ol>
+
+        <p>
+            A file named <b>tasks.ser</b> will store your tasks permanently using Serialization.
+        </p>
+
+        <hr>
+
+        <h2>🚀 Upgrade Ideas</h2>
+        <ul>
+            <li>Task deadlines</li>
+            <li>Priority levels</li>
+            <li>Categories</li>
+            <li>Task search</li>
+            <li>Export to JSON / CSV</li>
+            <li>GUI version (Swing / JavaFX)</li>
+            <li>Android app</li>
+        </ul>
+
+        <p>Tell me what you want next, Champak, and I'll generate the full code + explanation.</p>
+
+    </div>
+
+</body>
+
+</html>
